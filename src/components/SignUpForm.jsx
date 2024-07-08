@@ -12,13 +12,18 @@ export default function SignUpForm({ setToken }) {
     try {
       const response = await fetch(
         "https://fsa-jwt-practice.herokuapp.com/signup",
-        { method: "POST" }
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        }
       );
       const result = await response.json();
-      console.log(result);
       setToken(result.token);
       setSuccessMessage(result.message);
-      console.log(result.token);
       setUsername("");
       setPassword("");
     } catch (error) {
